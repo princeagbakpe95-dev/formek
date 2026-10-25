@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FORME — Clothing for every day</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #20231f;
+      --paper: #f5f2ec;
+      --muted: #74766e;
+      --green: #26352e;
+      --orange: #d66b47;
+      --line: #e5e1d9;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    .announcement {
+      padding: 10px;
+      color: var(--paper);
+      background: var(--green);
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: .09em;
+    }
+
+    .nav {
+      height: 76px;
+      padding: 0 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      font-family: Manrope, sans-serif;
+      font-weight: 800;
+      font-size: 23px;
+      letter-spacing: .18em;
+    }
+
+    .navlinks, .navright {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 12px;
+    }
+
+    .bag {
+      padding: 9px 15px;
+      border: 1px solid var(--ink);
+      border-radius: 30px;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 560px;
+      padding: 35px 6%;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      align-items: center;
+      gap: 5%;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 24px 0 18px;
+      font-family: Manrope, sans-serif;
+      font-size: clamp(46px, 6vw, 76px);
+      font-weight: 500;
+      letter-spacing: -.07em;
+      line-height: 1.02;
+    }
+
+    h1 i {
+      color: #677365;
+      font-family: Georgia, serif;
+    }
+
+    .hero-copy p {
+      max-width: 360px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 15px 19px;
+      color: white;
+      background: var(--green);
+      font-size: 12px;
+    }
+
+    .hero-img {
+      height: 500px;
+      position: relative;
+      overflow: hidden;
+      background: #d9d4ca;
+    }
+
+    .hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-label {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      color: white;
+      font-size: 10px;
+      letter-spacing: .12em;
+    }
+
+    .trust {
+      padding: 20px 6%;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: #676b62;
+      font-size: 10px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collection { padding: 80px 6%; }
+
+    .section-head {
+      margin-bottom: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    h2 {
+      margin: 12px 0 0;
+      font-family: Manrope, sans-serif;
+      font-weight: 500;
+      font-size: 35px;
+      letter-spacing: -.06em;
+    }
+
+    .filters {
+      margin-bottom: 22px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .filter {
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .filter.active, .filter:hover {
+      color: white;
+      background: var(--green);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 17px;
+    }
+
+    .photo {
+      height: 330px;
+      position: relative;
+      overflow: hidden;
+      background: #e8e4dc;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+
+    .product:hover .photo img { transform: scale(1.04); }
+
+    .tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 7px 9px;
+      background: var(--paper);
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .add {
+      width: 38px;
+      height: 38px;
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      border: 0;
+      border-radius: 50%;
+      background: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .details {
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .details small {
+      display: block;
+      margin-top: 5px;
+      color: #898a82;
+    }
+
+    .story {
+      margin: 0 6% 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #e4e8dd;
+    }
+
+    .story-img img {
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      object-fit: cover;
+    }
+
+    .story-copy {
+      padding: 45px 12%;
+      align-self: center;
+    }
+
+    .story-copy p {
+      max-width: 350px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .newsletter {
+      padding: 55px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      color: var(--paper);
+      background: var(--green);
+    }
+
+    .newsletter h2 { margin: 0 0 8px; font-size: 30px; }
+    .newsletter p { color: #c3cbc2; font-size: 11px; }
+
+    .signup {
+      width: min(390px, 45%);
+      display: flex;
+      border-bottom: 1px solid #aab2a9;
+    }
+
+    .signup input {
+      flex: 1;
+      padding: 12px 0;
+      border: 0;
+      outline: 0;
+      color: white;
+      background: transparent;
+      font-size: 12px;
+    }
+
+    .signup input::placeholder { color: #aab2a9; }
+    .signup button {
+      border: 0;
+      color: white;
+      background: transparent;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    footer {
+      padding: 25px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #85867d;
+      font-size: 10px;
+    }
+
+    .foot-links { display: flex; gap: 18px; }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      padding: 13px 18px;
+      color: white;
+      background: var(--green);
+      opacity: 0;
+      transform: translate(-50%, 15px);
+      transition: .25s;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 800px) {
+      .nav { padding: 0 4%; }
+      .navlinks { gap: 14px; }
+      .hero { padding: 25px 4%; }
+      .hero-img { height: 420px; }
+      .trust, .collection { padding-left: 4%; padding-right: 4%; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .photo { height: 45vw; }
+      .story { margin-left: 4%; margin-right: 4%; }
+    }
+
+    @media (max-width: 580px) {
+      .nav { height: 64px; padding: 0 5%; }
+      .navlinks, .navright > a { display: none; }
+      .hero {
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 15px 5% 35px;
+      }
+      .hero-img { width: 100%; height: 350px; }
+      h1 { font-size: 52px; }
+      .trust { overflow: auto; white-space: nowrap; }
+      .collection { padding: 55px 5%; }
+      h2 { font-size: 28px; }
+      .grid { gap: 22px 10px; }
+      .photo { height: 65vw; }
+      .filters { overflow: auto; }
+      .filter { white-space: nowrap; }
+      .story { margin: 0 5% 55px; grid-template-columns: 1fr; }
+      .story-img img { height: 250px; min-height: 0; }
+      .story-copy { padding: 32px 8%; }
+      .newsletter { padding: 40px 7%; display: block; }
+      .signup { width: 100%; margin-top: 22px; }
+      footer { padding: 22px 5%; flex-wrap: wrap; gap: 14px; }
+      .foot-links { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">COMPLIMENTARY SHIPPING ON ORDERS OVER $150 · NEW SEASON, NEW PERSPECTIVE</div>
+
+  <header class="nav">
+    <a class="logo" href="#top">FORME</a>
+    <nav class="navlinks">
+      <a href="#shop">New arrivals</a>
+      <a href="#shop">Clothing</a>
+      <a href="#story">Our approach</a>
+    </nav>
+    <div class="navright">
+      <a href="#shop">Search</a>
+      <button class="bag" id="bag">Bag (<span id="count">0</span>)</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">The everyday edit · 2025</div>
+        <h1>Wear what<br>feels <i>like you.</i></h1>
+        <p>Thoughtful pieces for wherever the day takes you. Easy shapes, beautiful fabrics, no second guessing.</p>
+        <a class="cta" href="#shop">Explore the collection &nbsp; ↗</a>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1400&q=85" alt="Model wearing a relaxed neutral outfit">
+        <div class="image-label">THE SOFT STRUCTURE EDIT</div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <span>● Natural-first fabrics</span>
+      <span>● Made in small runs</span>
+      <span>● Free shipping over $150</span>
+      <span>● Easy 30-day returns</span>
+    </div>
+
+    <section class="collection" id="shop">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">A little something for every day</div>
+          <h2>New, and already loved.</h2>
+        </div>
+        <a href="#shop">Shop all pieces ↗</a>
+      </div>
+
+      <div class="filters">
+        <button class="filter active" data-cat="All">All pieces</button>
+        <button class="filter" data-cat="Tops">Tops</button>
+        <button class="filter" data-cat="Dresses">Dresses</button>
+        <button class="filter" data-cat="Layers">Layers</button>
+        <button class="filter" data-cat="Bottoms">Bottoms</button>
+      </div>
+
+      <div class="grid" id="products"></div>
+    </section>
+
+    <section class="story" id="story">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=80" alt="A thoughtfully styled everyday look">
+      </div>
+      <div class="story-copy">
+        <div class="eyebrow">A softer kind of fashion</div>
+        <h2>Fewer things.<br>More feeling.</h2>
+        <p>We make clothes to live in, not just look at. Small collections, lasting fabrics and considered details that earn their place in your wardrobe.</p>
+        <a href="#shop">Get to know FORME ↗</a>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div>
+        <h2>A note from us, now and then.</h2>
+        <p>Fresh arrivals, good reads, and 10% off your first order.</p>
+      </div>
+      <form class="signup" id="signup">
+        <input type="email" placeholder="Your email address" required aria-label="Your email address">
+        <button aria-label="Subscribe">↗</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a class="logo" href="#top">FORME</a>
+    <span>© 2025 FORME STUDIO</span>
+    <div class="foot-links">
+      <a href="#">Instagram</a>
+      <a href="#">Shipping & returns</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const products = [
+      { name: "The Sunday Shirt", category: "Tops", price: 88, color: "Oat", image: "photo-1598554747436-c9293d6a588f", tag: "Bestseller" },
+      { name: "Everyday Linen Dress", category: "Dresses", price: 148, color: "Natural", image: "photo-1539008835657-9e8e9680c956", tag: "New in" },
+      { name: "Soft Form Knit", category: "Layers", price: 118, color: "Moss", image: "photo-1576566588028-4147f3842f27", tag: "" },
+      { name: "The Easy Trouser", category: "Bottoms", price: 128, color: "Stone", image: "photo-1509631179647-0177331693ae", tag: "" }
+    ];
+
+    let bagCount = 0;
+    const grid = document.getElementById("products");
+    const count = document.getElementById("count");
+    const toast = document.getElementById("toast");
+
+    function showMessage(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2000);
+    }
+
+    function renderProducts(category = "All") {
+      const shown = products.filter(product =>
+        category === "All" || product.category === category
+      );
+
+      grid.innerHTML = shown.map(product => `
+        <article class="product">
+          <div class="photo">
+            <img loading="lazy"
+              src="https://images.unsplash.com/${product.image}?auto=format&fit=crop&w=700&q=80"
+              alt="${product.name} in ${product.color}">
+            ${product.tag ? `<div class="tag">${product.tag}</div>` : ""}
+            <button class="add" aria-label="Add ${product.name} to bag">+</button>
+          </div>
+          <div class="details">
+            <div>${product.name}<small>${product.color} · ${product.category}</small></div>
+            <div>$${product.price}</div>
+          </div>
+        </article>
+      `).join("");
+
+      grid.querySelectorAll(".add").forEach(button => {
+        button.addEventListener("click", () => {
+          bagCount++;
+          count.textContent = bagCount;
+          showMessage("Added to your bag");
+        });
+      });
+    }
+
+    renderProducts();
+
+    document.querySelectorAll(".filter").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelector(".filter.active").classList.remove("active");
+        button.classList.add("active");
+        renderProducts(button.dataset.cat);
+      });
+    });
+
+    document.getElementById("bag").addEventListener("click", () => {
+      showMessage(bagCount
+        ? `${bagCount} ${bagCount === 1 ? "piece" : "pieces"} in your bag`
+        : "Your bag is waiting for something good");
+    });
+
+    document.getElementById("signup").addEventListener("submit", event => {
+      event.preventDefault();
+      showMessage("You’re on the list — welcome to FORME");
+      event.target.reset();
+    });
+  </script>
+</body>
+</html>
